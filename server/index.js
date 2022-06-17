@@ -14,27 +14,27 @@ const db = mysql.createConnection({
 });
 
 app.post("/create", (req, res) => {
-    const name = req.body.name;
-    const age = req.body.age;
-    const country = req.body.country;
-    const position = req.body.position;
-    const wage = req.body.wage;
+    const nome = req.body.nome;
+    const telefone = req.body.telefone;
+    const email = req.body.email;
+    const cnpj = req.body.cnpj;
 
     db.query(
-    "INSERT INTO employees (name, age, country, position, wage) VALUES (?,?,?,?,?)",
-    [name, age, country, position, wage],
+    "INSERT INTO empresa (nome, telefone, email, cnpj) VALUES (?,?,?,?)",
+    [nome, telefone, email, cnpj],
     (err, result) => {
         if (err) {
         console.log(err);
         } else {
-        res.send("Values Inserted");
+        res.send("Valor inserido");
         }
     }
     );
 });
 
-app.get("/employees", (req, res) => {
-  db.query("SELECT * FROM employees", (err, result) => {
+
+app.get("/empresa", (req, res) => {
+  db.query("SELECT * FROM empresa", (err, result) => {
     if (err) {
         console.log(err);
     } else {
@@ -45,10 +45,10 @@ app.get("/employees", (req, res) => {
 
 app.put("/update", (req, res) => {
     const id = req.body.id;
-    const wage = req.body.wage;
+    const email = req.body.email;
     db.query(
-    "UPDATE employees SET wage = ? WHERE id = ?",
-    [wage, id],
+    "UPDATE empresa SET email = ? WHERE id = ?",
+    [email, id],
     (err, result) => {
         if (err) {
         console.log(err);
@@ -61,7 +61,7 @@ app.put("/update", (req, res) => {
 
 app.delete("/delete/:id", (req, res) => {
     const id = req.params.id;
-    db.query("DELETE FROM employees WHERE id = ?", id, (err, result) => {
+    db.query("DELETE FROM empresa WHERE id = ?", id, (err, result) => {
     if (err) {
         console.log(err);
     } else {
@@ -71,5 +71,5 @@ app.delete("/delete/:id", (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log("Yey, your server is running on port 3001");
+    console.log("O server esta rodando no port 3001.");
 });
